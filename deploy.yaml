@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: go
-          image: juijeong8324/godummyweb:1.0
+          image: juijeong8324/web-go-db:1.0
           ports:
             - containerPort: 8080
           env:
