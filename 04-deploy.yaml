@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: wait-for-postgres
-          image: busybox
+          image: juijeong8324/web-go-db:v3
           command:
             [
               "sh",
@@ -25,7 +25,7 @@ spec:
             ]
       containers:
         - name: go
-          image: juijeong8324/web-go-db:v2
+          image: juijeong8324/web-go-db:v3
           ports:
             - containerPort: 8080
           env:
