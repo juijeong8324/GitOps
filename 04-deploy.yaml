@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: go
-          image: juijeong8324/web-go-db:v1
+          image: juijeong8324/web-go-db:e53ad25408f5576651f92d1650385b98f2a73783
           ports:
             - containerPort: 8080
           env:
