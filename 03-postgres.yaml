@@ -8,24 +8,12 @@ data:
   DB_NAME: postgres
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: postgres-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: postgres-deployment
-  labels:
-    app: postgres
+  name: postgres
 spec:
+  serviceName: postgres-service
   replicas: 1
   selector:
     matchLabels:
@@ -56,20 +44,21 @@ spec:
                 configMapKeyRef:
                   name: go-config
                   key: DB_NAME
-          resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
-            - name: postgres-storage
+            - name: postgres-data
               mountPath: /var/lib/postgresql/data
-      volumes:
-        - name: postgres-storage
-          persistentVolumeClaim:
-            claimName: postgres-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
+
 ---
 apiVersion: v1
 kind: Service
@@ -79,6 +68,7 @@ spec:
   selector:
     app: postgres
   type: ClusterIP
+  clusterIP: None # Headless Service (StatefulSet 필수)
   ports:
     - protocol: TCP
       port: 5432
