@@ -2,18 +2,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: go-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
   rules:
-    - host: go.example.com
+    - host: go.example.com # 실제 도메인으로
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: go-service
+                name: go-service # ← 여기서 Service를 참조!
                 port:
                   number: 8080
