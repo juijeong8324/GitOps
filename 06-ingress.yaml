@@ -4,13 +4,12 @@ metadata:
   name: go-ingress
 spec:
   rules:
-    - host: go.example.com # 실제 도메인으로
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: go-service # ← 여기서 Service를 참조!
+                name: go-service
                 port:
                   number: 8080
