@@ -7,6 +7,10 @@ Managed by Argo CD — any change pushed to this repository is automatically syn
 
 ## Architecture
 
+<img width="2510" height="2001" alt="architecture drawio" src="https://github.com/user-attachments/assets/3abad409-22f4-43dc-9444-1429767d894b" />
+<img width="1947" height="474" alt="ops drawio" src="https://github.com/user-attachments/assets/4b0c7764-087f-4bea-95a1-8a8770c86496" />
+
+
 ```
 Developer pushes code to WebGoDummy repo
         ↓
